@@ -2,12 +2,16 @@ package services;
 
 import entity.Query;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ServiceForString {
+public class ServiceForParsing {
     private final String waitingTimeline = "C";
     private final String queryLine = "D";
     private final char allTypes = '*';
@@ -25,6 +29,26 @@ public class ServiceForString {
             input.add(current);
         }
         scan.close();
+        return input;
+    }
+
+    public List<String> fromFileReadToList(){
+        List<String> input = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Specify the path to the file: ");
+        String pathToTheFile = scanner.nextLine();
+        try (BufferedReader br = new BufferedReader(new FileReader(pathToTheFile))){
+            String inputString;
+            while ((inputString = br.readLine()) != null){
+                input.add(inputString);
+            }
+        }catch (FileNotFoundException exception){
+            System.out.println("Incorrect file path!");
+        }catch (IOException exception){
+            exception.printStackTrace();
+        }finally {
+            scanner.close();
+        }
         return input;
     }
 
