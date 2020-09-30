@@ -34,7 +34,7 @@ public class ServiceForParsing {
     public List<String> fromFileReadToList(){
         List<String> input = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Specify the path to the file: ");
+        System.out.println("Specify the absolute path to the file: ");
         String pathToTheFile = scanner.nextLine();
         try (BufferedReader br = new BufferedReader(new FileReader(pathToTheFile))){
             String inputString;
@@ -51,7 +51,7 @@ public class ServiceForParsing {
         return input;
     }
 
-    public List<Query> fromAListOfStringsToAListOfQuery(List<String> stringList){
+    public List<Query> fromListOfStringsToListOfQuery(List<String> stringList){
         List<Query> queryList = new ArrayList<>();
         try {
             queryList = new ArrayList<>(Integer.valueOf(stringList.get(sizeInputString)));
@@ -75,7 +75,7 @@ public class ServiceForParsing {
         return queryList;
     }
 
-    public Query createQueryEntityFromArray(String[] arrayParameters) throws ParseException{
+    private Query createQueryEntityFromArray(String[] arrayParameters) throws ParseException{
         if (arrayParameters.length == standardSizeQueryAndTimeline &&
                 arrayParameters[0].equals(waitingTimeline)) {
             Query query = new Query(arrayParameters[0], arrayParameters[1], arrayParameters[2],
@@ -94,7 +94,7 @@ public class ServiceForParsing {
         return new Query();
     }
 
-    public String displayArray(String[] arrayString){
+    private String displayArray(String[] arrayString){
         String result = "";
         for (int i=0; i<arrayString.length; i++){
             result += arrayString[i].concat(" ");
