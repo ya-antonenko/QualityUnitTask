@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class ServiceForParsing {
     private final String waitingTimeline = "C";
     private final String queryLine = "D";
-    private final char allTypes = '*';
     private final int sizeInputString = 0;
     private final int sizeQueryWithoutDateTo = 5;
     private final int standardSizeQueryAndTimeline = 6;
@@ -53,8 +52,14 @@ public class ServiceForParsing {
     }
 
     public List<Query> fromAListOfStringsToAListOfQuery(List<String> stringList){
-        List<Query> queryList = new ArrayList<>(Integer.valueOf(stringList.get(sizeInputString)));
-        stringList.remove(sizeInputString);
+        List<Query> queryList = new ArrayList<>();
+        try {
+            queryList = new ArrayList<>(Integer.valueOf(stringList.get(sizeInputString)));
+            stringList.remove(sizeInputString);
+        }catch (NumberFormatException exception){
+            System.out.println("The first line does not indicate the number of requests. " +
+                    "This will increase the execution time of the application!");
+        }
         String separator = "\\s";
         for (int i=0; i<stringList.size(); i++){
             String changeString = stringList.get(i).replace('-',' ');

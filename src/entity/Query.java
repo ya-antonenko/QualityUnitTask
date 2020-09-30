@@ -13,11 +13,12 @@ public class Query {
     private Date dateTo;
     private int time;
 
+    private int averageWaitingTime = 0;
+    private int quantityTimeline = 0;
     private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
     public Query(String character, String serviceID, String questionTypeID, String responseType, String dateFrom, String dateTo)
     throws ParseException{
-        //SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         this.character = character;
         this.serviceID = serviceID;
         this.questionTypeID = questionTypeID;
@@ -28,7 +29,6 @@ public class Query {
 
     public Query(String character, String serviceID, String questionTypeID, String responseType, String dateFrom, int time)
     throws ParseException{
-        //SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         this.character = character;
         this.serviceID = serviceID;
         this.questionTypeID = questionTypeID;
@@ -107,6 +107,22 @@ public class Query {
         this.character = character;
     }
 
+    public int getAverageWaitingTime() {
+        return averageWaitingTime;
+    }
+
+    public void setAverageWaitingTime(int averageWaitingTime) {
+        this.averageWaitingTime = averageWaitingTime;
+    }
+
+    public int getQuantityTimeline() {
+        return quantityTimeline;
+    }
+
+    public void setQuantityTimeline(int quantityTimeline) {
+        this.quantityTimeline = quantityTimeline;
+    }
+
     @Override
     public String toString() {
         if (dateTo != null) {
@@ -117,7 +133,6 @@ public class Query {
                     ", responseType='" + responseType + '\'' +
                     ", dateFrom=" + format.format(dateFrom) +
                     ", dateTo=" + format.format(dateTo) +
-                    ", time=" + time +
                     '}';
         }else {
             return "Query{" +
@@ -126,7 +141,6 @@ public class Query {
                     ", questionTypeID='" + questionTypeID + '\'' +
                     ", responseType='" + responseType + '\'' +
                     ", dateFrom=" + format.format(dateFrom) +
-                    ", time=" + time +
                     '}';
         }
     }
