@@ -14,50 +14,50 @@ public class ApplicationController {
     private String fromFile = "2";
     private String toQuit = "q";
 
-    public void startApplication(){
+    public void startApplication() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello!" + "\n" + "Please, make a choice:" + "\n" +
                 "1 - enter a string in console;" + "\n" + "2 - download from file;" + "\n" +
                 "Q - close application.");
         String firstStep = scanner.nextLine();
-        while (true){
-            if (firstStep.equals(fromConsole)){
+        while (true) {
+            if (firstStep.equals(fromConsole)) {
                 List<Query> listWithAverageCustomerExpectation = createFinalListViaConsole();
                 showResult(listWithAverageCustomerExpectation);
                 break;
-            }else if (firstStep.equals(fromFile)){
+            } else if (firstStep.equals(fromFile)) {
                 List<Query> listWithAverageCustomerExpectation = createFinalListViaFile();
                 showResult(listWithAverageCustomerExpectation);
                 break;
-            }else if (firstStep.equalsIgnoreCase(toQuit)){
+            } else if (firstStep.equalsIgnoreCase(toQuit)) {
                 scanner.close();
                 break;
-            }else {
+            } else {
                 System.out.println("Incorrect entry, please try again!");
                 startApplication();
             }
         }
     }
 
-    private List<Query> createFinalListViaConsole(){
+    private List<Query> createFinalListViaConsole() {
         List<String> stringList = serviceForParsing.fromConsoleInputToList();
         List<Query> queryList = serviceForParsing.fromListOfStringsToListOfQuery(stringList);
         List<Query> listWithAverageCustomerExpectation = serviceForStatistics.countingAverageTime(queryList);
         return listWithAverageCustomerExpectation;
     }
 
-    private List<Query> createFinalListViaFile(){
+    private List<Query> createFinalListViaFile() {
         List<String> stringList = serviceForParsing.fromFileReadToList();
         List<Query> queryList = serviceForParsing.fromListOfStringsToListOfQuery(stringList);
         List<Query> listWithAverageCustomerExpectation = serviceForStatistics.countingAverageTime(queryList);
         return listWithAverageCustomerExpectation;
     }
 
-    private void showResult(List<Query> listWithAverageCustomerExpectation){
-        for (Query query : listWithAverageCustomerExpectation){
-            if (query.getAverageWaitingTime() == 0){
+    private void showResult(List<Query> listWithAverageCustomerExpectation) {
+        for (Query query : listWithAverageCustomerExpectation) {
+            if (query.getAverageWaitingTime() == 0) {
                 System.out.println(query.toString() + "average time : -");
-            }else {
+            } else {
                 System.out.println(query.toString() + "average time : " + query.getAverageWaitingTime());
             }
         }

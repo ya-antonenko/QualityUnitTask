@@ -1,9 +1,4 @@
 import contollers.ApplicationController;
-import entity.Query;
-import services.ServiceForParsing;
-import services.ServiceForStatistics;
-
-import java.util.List;
 
 public class Main {
 

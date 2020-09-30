@@ -18,7 +18,7 @@ public class Query {
     private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
     public Query(String character, String serviceID, String questionTypeID, String responseType, String dateFrom, String dateTo)
-    throws ParseException{
+            throws ParseException {
         this.character = character;
         this.serviceID = serviceID;
         this.questionTypeID = questionTypeID;
@@ -28,7 +28,7 @@ public class Query {
     }
 
     public Query(String character, String serviceID, String questionTypeID, String responseType, String dateFrom, int time)
-    throws ParseException{
+            throws ParseException {
         this.character = character;
         this.serviceID = serviceID;
         this.questionTypeID = questionTypeID;
@@ -38,7 +38,7 @@ public class Query {
     }
 
     public Query(String character, String serviceID, String questionTypeID, String responseType, String dateFrom)
-            throws ParseException{
+            throws ParseException {
         //SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
         this.character = character;
         this.serviceID = serviceID;
@@ -87,7 +87,7 @@ public class Query {
         return dateTo;
     }
 
-    public void setDateTo(String dateTo) throws ParseException{
+    public void setDateTo(String dateTo) throws ParseException {
         this.dateTo = format.parse(dateTo);
     }
 
@@ -134,7 +134,7 @@ public class Query {
                     ", dateFrom=" + format.format(dateFrom) +
                     ", dateTo=" + format.format(dateTo) +
                     '}';
-        }else {
+        } else {
             return "Query{" +
                     "character='" + character + '\'' +
                     ", serviceID='" + serviceID + '\'' +
