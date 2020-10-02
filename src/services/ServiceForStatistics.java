@@ -21,19 +21,22 @@ public class ServiceForStatistics {
             for (int j = 0; j < timelineList.size(); j++) {
                 if (comparisionOfParameters(query, timelineList.get(j))) {
                     int currentAverageWaiting = query.getAverageWaitingTime();
+                    currentAverageWaiting += timelineList.get(j).getTime();
+                    query.setAverageWaitingTime(currentAverageWaiting);
                     int quantityTimeline = query.getQuantityTimeline() + 1;
-                    int resultAverageWaiting = (currentAverageWaiting +
-                            timelineList.get(j).getTime()) / quantityTimeline;
-                    query.setAverageWaitingTime(resultAverageWaiting);
                     query.setQuantityTimeline(quantityTimeline);
-                    if (!listWithAverageCustomerExpectation.contains(query))
-                        listWithAverageCustomerExpectation.add(query);
-                    if (listWithAverageCustomerExpectation.contains(query)) {
-                        queryList.set(listWithAverageCustomerExpectation.indexOf(query), query);
-                    }
                 }
             }
-            if (query.getAverageWaitingTime() == 0) listWithAverageCustomerExpectation.add(query);
+            try{
+                int finalAverageWaitingTime;
+                finalAverageWaitingTime = query.getAverageWaitingTime() / query.getQuantityTimeline();
+                query.setAverageWaitingTime(finalAverageWaitingTime);
+                listWithAverageCustomerExpectation.add(query);
+            }catch (ArithmeticException e){
+                listWithAverageCustomerExpectation.add(query);
+                continue;
+            }
+
         }
         return listWithAverageCustomerExpectation;
     }
@@ -41,7 +44,9 @@ public class ServiceForStatistics {
     private List<Query> sortTheQueryList(List<Query> allQueryList) {
         List<Query> queryList = new ArrayList<>();
         for (int i = 0; i < allQueryList.size(); i++) {
-            if (allQueryList.get(i).getCharacter().equals(queryLine)) queryList.add(allQueryList.get(i));
+            Query query = allQueryList.get(i);
+            if (query.getCharacter().equals(queryLine) && !queryList.contains(query))
+                queryList.add(query);
         }
         return queryList;
     }
@@ -49,7 +54,9 @@ public class ServiceForStatistics {
     private List<Query> sortTheTimelineList(List<Query> allQueryList) {
         List<Query> timelineList = new ArrayList<>();
         for (int i = 0; i < allQueryList.size(); i++) {
-            if (allQueryList.get(i).getCharacter().equals(waitingTimeline)) timelineList.add(allQueryList.get(i));
+            Query query = allQueryList.get(i);
+            if (query.getCharacter().equals(waitingTimeline))
+                timelineList.add(query);
         }
         return timelineList;
     }

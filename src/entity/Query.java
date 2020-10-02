@@ -144,4 +144,17 @@ public class Query {
                     '}';
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Query query = (Query) obj;
+        if (this.character == query.character &&
+                this.serviceID == query.serviceID &&
+                this.questionTypeID ==  query.questionTypeID &&
+                this.responseType == query.responseType &&
+                this.dateFrom == query.dateTo &&
+                this.dateTo == query.dateTo &&
+                this.time == query.time) return true;
+        return false;
+    }
 }
